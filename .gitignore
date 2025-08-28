@@ -1,0 +1,44 @@
+# Node / Frontend dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# PHP / Composer
+vendor/
+composer.lock
+
+# Environment files
+.env
+*.env
+.env.local
+.env.*.local
+
+# OS / Editor specific
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# XAMPP / Local server specific
+/htdocs/
+/xamppfiles/
+
+# Build / Cache
+dist/
+build/
+.cache/
+*.bak
+
+# Database exports
+*.sql
+*.sqlite
+*.db
+
+# Sensitive keys or config
+config.php
+secret.php
