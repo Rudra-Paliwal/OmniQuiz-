@@ -87,8 +87,8 @@ OmniQuizPlus/
 
 1. Clone this repo:
    ```bash
-   git clone https://github.com/your-username/OmniQuizPlus.git
-   cd OmniQuizPlus
+   git clone https://github.com/your-username/OmniQuiz+.git
+   cd OmniQuiz+
    ```
 
 2. Import the database:
@@ -123,7 +123,9 @@ OmniQuizPlus/
 
 ## 👨‍💻 Contributors
 - **Rudraksh Paliwal** – Project Lead  
-- Team Members (if any)  
+- Team Members
+  **Vedant Patil
+  **Jay Hiwase
 
 ---
 
