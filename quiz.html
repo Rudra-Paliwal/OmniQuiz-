@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OmniQuiz+</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="quiz.css">
+<!-- Load Chart.js securely -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>OmniQuiz+</h1>
+
+    <!-- AUTH SECTION -->
+    <div class="auth">
+      <div class="tabs">
+        <button onclick="showTab('login')">Login</button>
+        <button onclick="showTab('register')">Register</button>
+      </div>
+      <div id="login" class="tab-content">
+        <input id="login_email" type="email" placeholder="Email"/>
+        <input
+          type="password"
+          id="login_password"
+          placeholder="Password"
+          autocomplete="off"
+          name="fake-password"
+          onfocus="this.removeAttribute('readonly');"
+          readonly
+          required
+        >
+        <button onclick="login()">Login</button>
+      </div>
+      <div id="register" class="tab-content" style="display:none;">
+        <input id="reg_name" type="text" placeholder="Name"/>
+        <input id="reg_email" type="email" placeholder="Email"/>
+        <input
+          type="password"
+          id="reg_password"
+          placeholder="Password"
+          autocomplete="off"
+          name="fake-password"
+          onfocus="this.removeAttribute('readonly');"
+          readonly
+          required
+        >
+        <button onclick="register()">Register</button>
+      </div>
+    </div>
+
+    <!-- QUIZ SECTION -->
+    <div id="quizContainer" style="display: none;">
+      <button onclick="logout()">Logout</button>
+
+      <div id="quizPanel">
+        <div id="questionBox">Question will load here</div>
+
+        <label>Confidence:
+          <input type="range" id="confidence" min="0" max="100" value="50" oninput="updateConfidence(this.value)">
+          <span id="confVal">50</span>
+        </label><br><br>
+
+        <button onclick="useHint()">Use Hint</button>
+        <button onclick="submitAnswer()">Submit</button>
+
+        <p id="feedback"></p>
+        <p>Time left: <span id="timeLeft">30</span>s</p>
+      </div>
+
+      <!-- Results Chart Panel -->
+<div id="resultsPanel" style="display: none;">
+  <h3 id="totalScoreText"></h3>
+  <canvas id="performanceChart" width="400" height="200"></canvas>
+  <br>
+  <button onclick="downloadResults()">📥 Download Results (CSV)</button>
+  <button onclick="tryAgain()">🔄 Try Again</button>
+</div>
+
+      </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="adminPanel" style="display:none; padding: 20px; color: white;">
+      <h2>Admin Dashboard</h2>
+      <button onclick="logout()">Logout</button>
+      <div style="margin-bottom: 20px;">
+        <button onclick="showSection('add')">➕ Add Question</button>
+        <button onclick="showSection('results')">📊 Show Results</button>
+        <button onclick="showSection('users')">👥 Manage Users</button>
+      </div>
+
+
+      <!-- Add Question Form -->
+     <div id="addQuestionSection" style="display: none;">
+    <h3>Add New Question</h3>
+    <input id="question_text" type="text" placeholder="Question Text" /><br><br>
+    <textarea id="options_json" placeholder='{"A":"Option 1","B":"Option 2","C":"Option 3","D":"Option 4"}'></textarea><br><br>
+    <input id="correct_option" type="text" placeholder="Correct Option (A/B/C/D)" /><br><br>
+    <input id="topic" type="text" placeholder="Topic ID" /><br><br>
+    <input id="difficulty" type="number" min="1" max="5" placeholder="Difficulty (1-5)" /><br><br>
+    <input id="hint" type="text" placeholder="Hint"><br><br>
+
+    <button type="button" onclick="addQuestion()">Add Question</button>
+    <div id="adminMsg" style="margin-top:10px;color:lightgreen;"></div>
+  </div>
+
+     
+
+      <!-- Results Viewer -->
+     <div id="resultsSection" style="display: none;">
+  <h3>Submitted Responses</h3>
+  <button onclick="fetchResults()">Refresh Results</button>
+
+  <!-- Chart -->
+  <canvas id="resultsChart" style="margin-top: 20px;"></canvas>
+
+  <!-- Scrollable Table Container -->
+  <div class="table-container">
+    <h4 style="margin-top: 30px;">Detailed Response Table</h4>
+    <table id="resultsTable" border="1" cellpadding="8" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+      <thead style="background-color: #f0f0f0;">
+        <tr>
+          <th>User</th>
+          <th>Question</th>
+          <th>Chosen Option</th>
+          <th>Correct Option</th>
+          <th>Confidence</th>
+          <th>Hint Used</th>
+          <th>Time (s)</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+
+ <div id="usersSection" style="display: none;">
+  <h3>All Users</h3>
+  <button onclick="fetchUsers()">🔄 Refresh User List</button>
+
+  <!-- Scrollable wrapper -->
+  <div style="max-height: 300px; overflow-y: auto; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    <table border="1" id="usersTable" style="width: 100%; border-collapse: collapse;">
+      <thead style="position: sticky; top: 0; background: #f0f0f0; z-index: 1;">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+</body>
+  <script src="main.js"></script>
+
+</html>
